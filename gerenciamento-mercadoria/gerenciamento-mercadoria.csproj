@@ -131,15 +131,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mercadoria.cs">
+      <DependentUpon>MercadoriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MercadoriaModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MercadoriaModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MercadoriaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MercadoriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MercadoriaModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MercadoriaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MercadoriaViewModel.cs" />
+    <Compile Include="Models\Tipo.cs">
+      <DependentUpon>MercadoriaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -166,6 +178,12 @@
     <Content Include="Models\MercadoriaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MercadoriaModel.Context.cs</LastGenOutput>
+      <DependentUpon>MercadoriaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\MercadoriaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MercadoriaModel.edmx</DependentUpon>
+      <LastGenOutput>MercadoriaModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -177,9 +195,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MercadoriaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\MercadoriaModel.edmx.diagram">
+    <Content Include="Models\MercadoriaModel.edmx.diagram">
       <DependentUpon>MercadoriaModel.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<gerenciamento_mercadoria.Models.MercadoriaViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = null;
@@ -35,5 +35,18 @@
             <th>Tipo</th>
             <th>Descrição</th>
         </tr>
+        <tbody>
+            @foreach(var mercadoria in Model)
+            {
+                <tr>
+                    <td>@mercadoria.MercadoriaId</td>
+                    <td>@mercadoria.Nome</td>
+                    <td>@mercadoria.NumeroRegistro</td>
+                    <td>@mercadoria.Fabricante</td>
+                    <td>@mercadoria.NomeTipo</td>
+                    <td>@mercadoria.Descricao</td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
