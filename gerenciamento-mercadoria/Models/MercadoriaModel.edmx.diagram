@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d3f11913cddb402ea4c7a642537cc9d9" Name="Diagram1">
-        <EntityTypeShape EntityType="gerenciaModel.Mercadoria" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="gerenciaModel.Tipo" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="gerenciaModel.FK_Mercadoria_Tipo" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="gerenciaModel.Mercadoria" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="gerenciaModel.FK_Mercadoria_Tipo" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

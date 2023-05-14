@@ -25,7 +25,7 @@ namespace gerenciamento_mercadoria.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Mercadoria> Mercadorias { get; set; }
         public DbSet<Tipo> Tipoes { get; set; }
+        public DbSet<Mercadoria> Mercadorias { get; set; }
     }
 }

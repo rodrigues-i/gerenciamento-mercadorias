@@ -18,7 +18,7 @@ namespace gerenciamento_mercadoria.Models
         public string Nome { get; set; }
         public string NumeroRegistro { get; set; }
         public string Fabricante { get; set; }
-        public int Tipo { get; set; }
+        public int TipoId { get; set; }
         public string Descricao { get; set; }
     
         public virtual Tipo Tipos { get; set; }
