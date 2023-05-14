@@ -1,10 +1,20 @@
-﻿@model IEnumerable<gerenciamento_mercadoria.Models.MercadoriaViewModel>
+﻿@model gerenciamento_mercadoria.Models.MercadoriaViewModel
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
 
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand">Nome Aplicação</a>
@@ -24,7 +34,7 @@
 
 <div class="container d-flex flex-column" style="width:60%;margin-top:2%">
     <div class="d-flex justify-content-end mb-2">
-        <button class="btn btn-success">Adicionar</button>
+        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal">Adicionar</a>
     </div>
     <table class="table table-striped">
         <tr>
@@ -36,7 +46,7 @@
             <th>Descrição</th>
         </tr>
         <tbody>
-            @foreach(var mercadoria in Model)
+            @foreach (var mercadoria in ViewBag.Mercadorias)
             {
                 <tr>
                     <td>@mercadoria.MercadoriaId</td>
@@ -49,4 +59,55 @@
             }
         </tbody>
     </table>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Mercadoria</h3>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+                <div class="modal-body">
+                    <form id="myForm">
+
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Nome" })
+
+                        @Html.TextBoxFor(model => model.NumeroRegistro, new { @class = "form-control", @placeholder = "Número de Registro" })
+
+                        @Html.TextBoxFor(model => model.Fabricante, new { @class = "form-control", @placeholder = "Fabricante" })
+
+                        @Html.DropDownListFor(model => model.TipoId, ViewBag.TipoList as SelectList, "Selecione o Tipo", new { @class = "form-control" })
+
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @placeholder = "Descrição" })
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Submit" class="btn btn-success" id="btnSubimit" />
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    var url = window.location.href;
+
+    $(document).ready(function () {
+        $("#btnSubimit").click(function () {
+            var myFormData = $("#myForm").serialize();
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: myFormData,
+                success: function () {
+                    $('#myForm').trigger("reset");
+                    location.reload();
+                }
+            })
+        })
+    })
+</script>
