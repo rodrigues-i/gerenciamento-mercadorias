@@ -76,7 +76,7 @@
 
                         @Html.TextBoxFor(model => model.Fabricante, new { @class = "form-control", @placeholder = "Fabricante" })
 
-                        @Html.DropDownListFor(model => model.TipoId, ViewBag.TipoList as SelectList, "Selecione o Tipo", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.TipoId, ViewBag.TipoList as SelectList, "Tipo de Mercadoria", new { @class = "form-control" })
 
                         @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @placeholder = "Descrição" })
 
