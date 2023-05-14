@@ -1,7 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Index";
     Layout = null;
 }
+
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
     <div class="container">
@@ -19,6 +21,19 @@
     </div>
 </nav>
 
-<div class="container">
-    <h1>Página Inicial</h1>
+
+<div class="container d-flex flex-column" style="width:60%;margin-top:2%">
+    <div class="d-flex justify-content-end mb-2">
+        <button class="btn btn-success">Adicionar</button>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Número de Registro</th>
+            <th>Fabricante</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+        </tr>
+    </table>
 </div>
