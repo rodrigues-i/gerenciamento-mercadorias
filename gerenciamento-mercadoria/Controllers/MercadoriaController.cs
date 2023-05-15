@@ -131,5 +131,19 @@ namespace gerenciamento_mercadoria.Controllers
             }
 
         }
+
+        public ActionResult RemoverMercadoria(int id)
+        {
+
+            gerenciaEntities db = new gerenciaEntities();
+            Mercadoria mercadoria = db.Mercadorias.Find(id);
+            if(mercadoria != null)
+            {
+                db.Mercadorias.Remove(mercadoria);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

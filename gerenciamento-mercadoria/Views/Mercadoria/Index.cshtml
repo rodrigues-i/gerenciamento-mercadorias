@@ -61,7 +61,9 @@
                     <td>
                         @Html.ActionLink("Atualizar", "AtualizarMercadoria", new { id = mercadoria.MercadoriaId }, new { @class = "btn btn-success" })
                     </td>
-                    <td><button class="btn btn-danger">Excluir</button></td>
+                    <td>
+                        @Html.ActionLink("Excluir", "RemoverMercadoria", new { id = mercadoria.MercadoriaId}, new { @class = "btn btn-danger" })
+                    </td>
                 </tr>
             }
         </tbody>
