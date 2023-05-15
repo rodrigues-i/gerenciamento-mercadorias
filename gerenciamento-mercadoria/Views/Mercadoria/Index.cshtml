@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand">Nome Aplicação</a>
@@ -32,19 +32,22 @@
 </nav>
 
 
-<div class="container d-flex flex-column" style="width:60%;margin-top:2%">
+<div class="container d-flex flex-column" style="width:90%;margin-top:2%">
     <div class="d-flex justify-content-end mb-2">
         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal">Adicionar</a>
     </div>
-    <table class="table table-striped">
-        <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Número de Registro</th>
-            <th>Fabricante</th>
-            <th>Tipo</th>
-            <th>Descrição</th>
-        </tr>
+    <table class="table table-striped custom-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th class="text-nowrap">Número de Registro</th>
+                <th>Fabricante</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
         <tbody>
             @foreach (var mercadoria in ViewBag.Mercadorias)
             {
@@ -55,6 +58,10 @@
                     <td>@mercadoria.Fabricante</td>
                     <td>@mercadoria.NomeTipo</td>
                     <td>@mercadoria.Descricao</td>
+                    <td>
+                        @Html.ActionLink("Atualizar", "AtualizarMercadoria", new { id = mercadoria.MercadoriaId }, new { @class = "btn btn-success" })
+                    </td>
+                    <td><button class="btn btn-danger">Excluir</button></td>
                 </tr>
             }
         </tbody>
