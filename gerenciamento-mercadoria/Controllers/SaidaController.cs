@@ -90,5 +90,18 @@ namespace gerenciamento_mercadoria.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult RemoverSaida(int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            Saida saida = db.Saidas.Find(id);
+            if(saida != null)
+            {
+                db.Saidas.Remove(saida);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
