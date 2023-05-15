@@ -27,5 +27,6 @@ namespace gerenciamento_mercadoria.Models
     
         public DbSet<Tipo> Tipoes { get; set; }
         public DbSet<Mercadoria> Mercadorias { get; set; }
+        public DbSet<Entrada> Entradas { get; set; }
     }
 }

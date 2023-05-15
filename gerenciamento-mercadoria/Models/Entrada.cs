@@ -12,21 +12,14 @@ namespace gerenciamento_mercadoria.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Mercadoria
+    public partial class Entrada
     {
-        public Mercadoria()
-        {
-            this.Entradas = new HashSet<Entrada>();
-        }
-    
+        public int EntradaId { get; set; }
+        public int Quantidade { get; set; }
+        public System.DateTime Data { get; set; }
+        public string Local { get; set; }
         public int MercadoriaId { get; set; }
-        public string Nome { get; set; }
-        public string NumeroRegistro { get; set; }
-        public string Fabricante { get; set; }
-        public int TipoId { get; set; }
-        public string Descricao { get; set; }
     
-        public virtual Tipo Tipos { get; set; }
-        public virtual ICollection<Entrada> Entradas { get; set; }
+        public virtual Mercadoria Mercadorias { get; set; }
     }
 }
