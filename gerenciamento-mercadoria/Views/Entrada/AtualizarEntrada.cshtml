@@ -1,7 +1,7 @@
 ﻿@model gerenciamento_mercadoria.Models.EntradaViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "AtualizarEntrada";
     Layout = null;
 }
 
@@ -26,82 +26,52 @@
             <ul class="navbar-nav flex-grow-1">
                 <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Mercadoria", "Index", "Mercadoria", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Entrada", "Index", "Entrada", new { area = "" }, new { @class = "nav-link" })</li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container d-flex flex-column" style="width:90%;margin-top:2%">
-    <div class="d-flex justify-content-end mb-2">
-        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal">Adicionar</a>
-    </div>
-    <table class="table table-striped custom-table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Mercadoria</th>
-                <th>Quantidade</th>
-                <th class="text-nowrap">Data e Hora do Cadastro</th>
-                <th>Local</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var entrada in ViewBag.Entradas)
-            {
-                <tr>
-                    <td>@entrada.EntradaId</td>
-                    <td>@entrada.Nome</td>
-                    <td>@entrada.Quantidade</td>
-                    <td>@entrada.Data</td>
-                    <td>@entrada.Local</td>
-                    <td>
-                        @Html.ActionLink("Atualizar", "AtualizarEntrada", new { id = entrada.EntradaId }, new { @class = "btn btn-success" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Excluir", "RemoverEntrada", new { id = entrada.EntradaId }, new { @class = "btn btn-danger" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Visualizar", "VisualizarEntrada", new { id = entrada.EntradaId }, new { @class = "btn btn-primary" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Entrada</h3>
-                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Mercadoria</h3>
+                    <a href="#" class="close" data-dismiss="modal" onclick="redirectToIndex()">&times;</a>
                 </div>
                 <div class="modal-body">
                     <form id="myForm">
 
-                        @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", @placeholder = "Quantidade" })
+                        @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control" })
 
-                        @Html.TextBoxFor(model => model.Data, new { @class = "form-control", @placeholder = "Data e Hora no Formato dd/mm/yyyy h:m:s" })
+                        @Html.TextBoxFor(model => model.Data, new { @class = "form-control" })
 
-                        @Html.TextBoxFor(model => model.Local, new { @class = "form-control", @placeholder = "Local" })
+                        @Html.TextBoxFor(model => model.Local, new { @class = "form-control" })
 
-                        @Html.DropDownListFor(model => model.MercadoriaId, ViewBag.MercadoriaList as SelectList, "Selecione Mercadoria", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.MercadoriaId, ViewBag.MercadoriaList as SelectList, "Selecione uma Mercadoria", new { @class = "form-control" })
+
 
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
-                    <input type="reset" value="Adicionar" class="btn btn-success" id="btnSubimit" />
+                    <a href="#" class="btn btn-default" data-dismiss="modal" onclick="redirectToIndex()">Cancel</a>
+                    <input type="reset" value="Atualizar" class="btn btn-success" id="btnSubimit" />
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    var url = window.location.href;
+    $(document).ready(function () {
+        $("#myModal").modal("show");
+    })
+
+    function redirectToIndex() {
+            window.location.href = '@Url.Action("Index", "Entrada")';
+    }
+
+    var url = '@Url.Action("AtualizarEntrada", "Entrada", new { id = Model.EntradaId })';
 
     $(document).ready(function () {
         $("#btnSubimit").click(function () {
@@ -113,7 +83,8 @@
                 data: myFormData,
                 success: function () {
                     $('#myForm').trigger("reset");
-                    location.reload();
+                    $('#myModal').modal('hide');
+                    window.location.href = '@Url.Action("Index", "Entrada")';
                 }
             })
         })

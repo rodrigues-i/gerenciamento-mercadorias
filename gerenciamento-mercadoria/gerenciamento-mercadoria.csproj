@@ -235,6 +235,7 @@
     <Content Include="Views\Mercadoria\Index.cshtml" />
     <Content Include="Views\Mercadoria\AtualizarMercadoria.cshtml" />
     <Content Include="Views\Entrada\Index.cshtml" />
+    <Content Include="Views\Entrada\AtualizarEntrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

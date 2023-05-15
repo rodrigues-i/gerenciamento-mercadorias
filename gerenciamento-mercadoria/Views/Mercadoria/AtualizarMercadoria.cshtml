@@ -55,7 +55,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-default" data-dismiss="modal" onclick="redirectToIndex()">Cancel</a>
-                    <input type="reset" value="Atualizar" class="btn btn-success" id="btnSubimit" />
+                    <input type="reset" value="Atualizar" class="btn btn-success" id="btnSubimiit" />
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
     var url = '@Url.Action("AtualizarMercadoria", "Mercadoria", new { id = Model.MercadoriaId })';
 
     $(document).ready(function () {
-        $("#btnSubimit").click(function () {
+        $("#btnSubimiit").click(function () {
             var myFormData = $("#myForm").serialize();
 
             $.ajax({
