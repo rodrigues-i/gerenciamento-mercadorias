@@ -69,5 +69,67 @@ namespace gerenciamento_mercadoria.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult AtualizarMercadoria(int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            Mercadoria mercadoria = db.Mercadorias.Find(id);
+            MercadoriaViewModel mercadoriaVM = new MercadoriaViewModel();
+
+            if (mercadoria != null)
+            {
+
+                mercadoriaVM.MercadoriaId = mercadoria.MercadoriaId;
+                mercadoriaVM.Nome = mercadoria.Nome;
+                mercadoriaVM.NumeroRegistro = mercadoria.NumeroRegistro;
+                mercadoriaVM.NomeTipo = mercadoria.Tipos != null ? mercadoria.Tipos.TipoNome : null;
+                mercadoriaVM.TipoId = mercadoria.Tipos.TipoId;
+                mercadoriaVM.Descricao = mercadoria.Descricao;
+                mercadoriaVM.Fabricante = mercadoria.Fabricante;
+
+
+                ViewBag.Mercadoria = mercadoriaVM;
+
+                List<Tipo> tipos = db.Tipoes.ToList();
+                ViewBag.TipoList = new SelectList(tipos, "TipoId", "TipoNome");
+            }
+            
+            return View(mercadoriaVM);
+        }
+
+        [HttpPost]
+        public ActionResult AtualizarMercadoria(MercadoriaViewModel model, int id)
+        {
+            try
+            {
+                gerenciaEntities db = new gerenciaEntities();
+                List<Tipo> tipos = db.Tipoes.ToList();
+                ViewBag.TipoList = new SelectList(tipos, "TipoId", "TipoNome");
+                Mercadoria mercadoria = db.Mercadorias.Find(id);
+
+                mercadoria.Nome = model.Nome;
+                mercadoria.NumeroRegistro = model.NumeroRegistro;
+                mercadoria.Fabricante = model.Fabricante;
+                mercadoria.TipoId = model.TipoId;
+                mercadoria.Descricao = model.Descricao;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+
+        }
     }
 }
