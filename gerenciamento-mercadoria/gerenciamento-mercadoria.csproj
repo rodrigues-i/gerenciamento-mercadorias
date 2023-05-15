@@ -242,6 +242,7 @@
     <Content Include="Views\Entrada\Index.cshtml" />
     <Content Include="Views\Entrada\AtualizarEntrada.cshtml" />
     <Content Include="Views\Saida\Index.cshtml" />
+    <Content Include="Views\Saida\AtualizarSaida.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

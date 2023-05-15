@@ -49,5 +49,46 @@ namespace gerenciamento_mercadoria.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult AtualizarSaida(int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            Saida saida = db.Saidas.Find(id);
+            SaidaViewModel saidaVM = new SaidaViewModel();
+            if(saida != null)
+            {
+                saidaVM.Quantidade = saida.Quantidade;
+                saidaVM.Data = saida.Data;
+                saidaVM.Local = saida.Local;
+                saidaVM.MercadoriaId = saida.MercadoriaId;
+                saidaVM.SaidaId = saida.SaidaId;
+                saidaVM.Nome = saida.Mercadorias.Nome;
+
+                List<Mercadoria> mercadorias = db.Mercadorias.ToList();
+                ViewBag.MercadoriaList = new SelectList(mercadorias, "MercadoriaId", "Nome");
+            }
+
+            return View(saidaVM);
+        }
+
+        [HttpPost]
+        public ActionResult AtualizarSaida(SaidaViewModel model, int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            Saida saida = db.Saidas.Find(id);
+            List<Mercadoria> mercadorias = db.Mercadorias.ToList();
+            ViewBag.MercadoriaList = new SelectList(mercadorias, "MercadoriaId", "Nome");
+            if(saida != null)
+            {
+                saida.Quantidade = model.Quantidade;
+                saida.Data = model.Data;
+                saida.Local = model.Local;
+                saida.MercadoriaId = model.MercadoriaId;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
