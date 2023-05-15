@@ -26,6 +26,16 @@
           <Property Name="TipoId" Type="int" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
+        <EntityType Name="Saida">
+          <Key>
+            <PropertyRef Name="SaidaId" />
+          </Key>
+          <Property Name="SaidaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantidade" Type="int" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Local" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MercadoriaId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Tipo">
           <Key>
             <PropertyRef Name="TipoId" />
@@ -57,9 +67,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Saida_Mercadoria">
+          <End Role="Mercadoria" Type="Self.Mercadoria" Multiplicity="1" />
+          <End Role="Saida" Type="Self.Saida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mercadoria">
+              <PropertyRef Name="MercadoriaId" />
+            </Principal>
+            <Dependent Role="Saida">
+              <PropertyRef Name="MercadoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gerenciaModelStoreContainer">
           <EntitySet Name="Entrada" EntityType="Self.Entrada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mercadoria" EntityType="Self.Mercadoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saida" EntityType="Self.Saida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Entrada_Mercadoria" Association="Self.FK_Entrada_Mercadoria">
             <End Role="Mercadoria" EntitySet="Mercadoria" />
@@ -68,6 +91,10 @@
           <AssociationSet Name="FK_Mercadoria_Tipo" Association="Self.FK_Mercadoria_Tipo">
             <End Role="Tipo" EntitySet="Tipo" />
             <End Role="Mercadoria" EntitySet="Mercadoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Saida_Mercadoria" Association="Self.FK_Saida_Mercadoria">
+            <End Role="Mercadoria" EntitySet="Mercadoria" />
+            <End Role="Saida" EntitySet="Saida" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -94,6 +121,11 @@
             <End Role="Mercadoria" EntitySet="Mercadorias" />
             <End Role="Entrada" EntitySet="Entradas" />
           </AssociationSet>
+          <EntitySet Name="Saidas" EntityType="gerenciaModel.Saida" />
+          <AssociationSet Name="FK_Saida_Mercadoria" Association="gerenciaModel.FK_Saida_Mercadoria">
+            <End Role="Mercadoria" EntitySet="Mercadorias" />
+            <End Role="Saida" EntitySet="Saidas" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Mercadoria">
           <Key>
@@ -107,6 +139,7 @@
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tipos" Relationship="gerenciaModel.FK_Mercadoria_Tipo" FromRole="Mercadoria" ToRole="Tipo" />
           <NavigationProperty Name="Entradas" Relationship="gerenciaModel.FK_Entrada_Mercadoria" FromRole="Mercadoria" ToRole="Entrada" />
+          <NavigationProperty Name="Saidas" Relationship="gerenciaModel.FK_Saida_Mercadoria" FromRole="Mercadoria" ToRole="Saida" />
         </EntityType>
         <Association Name="FK_Mercadoria_Tipo">
           <End Type="gerenciaModel.Tipo" Role="Tipo" Multiplicity="1" />
@@ -139,6 +172,29 @@
               <PropertyRef Name="MercadoriaId" />
             </Principal>
             <Dependent Role="Entrada">
+              <PropertyRef Name="MercadoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Saida">
+          <Key>
+            <PropertyRef Name="SaidaId" />
+          </Key>
+          <Property Name="SaidaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantidade" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MercadoriaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mercadorias" Relationship="gerenciaModel.FK_Saida_Mercadoria" FromRole="Saida" ToRole="Mercadoria" />
+        </EntityType>
+        <Association Name="FK_Saida_Mercadoria">
+          <End Type="gerenciaModel.Mercadoria" Role="Mercadoria" Multiplicity="1" />
+          <End Type="gerenciaModel.Saida" Role="Saida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mercadoria">
+              <PropertyRef Name="MercadoriaId" />
+            </Principal>
+            <Dependent Role="Saida">
               <PropertyRef Name="MercadoriaId" />
             </Dependent>
           </ReferentialConstraint>
@@ -177,6 +233,17 @@
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
                 <ScalarProperty Name="EntradaId" ColumnName="EntradaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saidas">
+            <EntityTypeMapping TypeName="gerenciaModel.Saida">
+              <MappingFragment StoreEntitySet="Saida">
+                <ScalarProperty Name="MercadoriaId" ColumnName="MercadoriaId" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="SaidaId" ColumnName="SaidaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,6 +17,7 @@ namespace gerenciamento_mercadoria.Models
         public Mercadoria()
         {
             this.Entradas = new HashSet<Entrada>();
+            this.Saidas = new HashSet<Saida>();
         }
     
         public int MercadoriaId { get; set; }
@@ -28,5 +29,6 @@ namespace gerenciamento_mercadoria.Models
     
         public virtual Tipo Tipos { get; set; }
         public virtual ICollection<Entrada> Entradas { get; set; }
+        public virtual ICollection<Saida> Saidas { get; set; }
     }
 }

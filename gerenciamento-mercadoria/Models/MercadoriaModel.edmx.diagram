@@ -10,6 +10,8 @@
         <AssociationConnector Association="gerenciaModel.FK_Mercadoria_Tipo" />
         <EntityTypeShape EntityType="gerenciaModel.Entrada" Width="1.5" PointX="5.25" PointY="1.25" />
         <AssociationConnector Association="gerenciaModel.FK_Entrada_Mercadoria" />
+        <EntityTypeShape EntityType="gerenciaModel.Saida" Width="1.5" PointX="5.25" PointY="4.25" />
+        <AssociationConnector Association="gerenciaModel.FK_Saida_Mercadoria" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
