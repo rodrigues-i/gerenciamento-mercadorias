@@ -1,9 +1,9 @@
-﻿@model gerenciamento_mercadoria.Models.MercadoriaViewModel
+﻿@model gerenciamento_mercadoria.Models.EntradaViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -32,7 +32,6 @@
     </div>
 </nav>
 
-
 <div class="container d-flex flex-column" style="width:90%;margin-top:2%">
     <div class="d-flex justify-content-end mb-2">
         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal">Adicionar</a>
@@ -41,29 +40,30 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nome</th>
-                <th class="text-nowrap">Número de Registro</th>
-                <th>Fabricante</th>
-                <th>Tipo</th>
-                <th>Descrição</th>
+                <th>Mercadoria</th>
+                <th>Quantidade</th>
+                <th class="text-nowrap">Data e Hora do Cadastro</th>
+                <th>Local</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var mercadoria in ViewBag.Mercadorias)
+            @foreach (var entrada in ViewBag.Entradas)
             {
                 <tr>
-                    <td>@mercadoria.MercadoriaId</td>
-                    <td>@mercadoria.Nome</td>
-                    <td>@mercadoria.NumeroRegistro</td>
-                    <td>@mercadoria.Fabricante</td>
-                    <td>@mercadoria.NomeTipo</td>
-                    <td>@mercadoria.Descricao</td>
+                    <td>@entrada.EntradaId</td>
+                    <td>@entrada.Nome</td>
+                    <td>@entrada.Quantidade</td>
+                    <td>@entrada.Data</td>
+                    <td>@entrada.Local</td>
                     <td>
-                        @Html.ActionLink("Atualizar", "AtualizarMercadoria", new { id = mercadoria.MercadoriaId }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Atualizar", "AtualizarMercadoria", new { id = entrada.EntradaId }, new { @class = "btn btn-success" })
                     </td>
                     <td>
-                        @Html.ActionLink("Excluir", "RemoverMercadoria", new { id = mercadoria.MercadoriaId}, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Excluir", "RemoverMercadoria", new { id = entrada.EntradaId }, new { @class = "btn btn-danger" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Visualizar", "VizualizarEntrada", new { id = entrada.EntradaId }, new { @class = "btn btn-primary" })
                     </td>
                 </tr>
             }
@@ -74,21 +74,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Mercadoria</h3>
+                    <h3 class="modal-title">Entrada</h3>
                     <a href="#" class="close" data-dismiss="modal">&times;</a>
                 </div>
                 <div class="modal-body">
                     <form id="myForm">
 
-                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", @placeholder = "Nome" })
+                        @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", @placeholder = "Quantidade" })
 
-                        @Html.TextBoxFor(model => model.NumeroRegistro, new { @class = "form-control", @placeholder = "Número de Registro" })
+                        @Html.TextBoxFor(model => model.Data, new { @class = "form-control", @placeholder = "Data e Hora no Formato dd/mm/yyyy h:m:s" })
 
-                        @Html.TextBoxFor(model => model.Fabricante, new { @class = "form-control", @placeholder = "Fabricante" })
+                        @Html.TextBoxFor(model => model.Local, new { @class = "form-control", @placeholder = "Local" })
 
-                        @Html.DropDownListFor(model => model.TipoId, ViewBag.TipoList as SelectList, "Tipo de Mercadoria", new { @class = "form-control" })
-
-                        @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", @placeholder = "Descrição" })
+                        @Html.DropDownListFor(model => model.MercadoriaId, ViewBag.MercadoriaList as SelectList, "Selecione Mercadoria", new { @class = "form-control" })
 
                     </form>
                 </div>
