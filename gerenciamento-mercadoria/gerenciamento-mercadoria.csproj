@@ -129,12 +129,14 @@
     <Compile Include="Controllers\EntradaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MercadoriaController.cs" />
+    <Compile Include="Controllers\SaidaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entrada.cs">
       <DependentUpon>MercadoriaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SaidaViewModel.cs" />
     <Compile Include="Models\EntradaViewModel.cs" />
     <Compile Include="Models\Mercadoria.cs">
       <DependentUpon>MercadoriaModel.tt</DependentUpon>
@@ -155,6 +157,9 @@
       <DependentUpon>MercadoriaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\MercadoriaViewModel.cs" />
+    <Compile Include="Models\Saida.cs">
+      <DependentUpon>MercadoriaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tipo.cs">
       <DependentUpon>MercadoriaModel.tt</DependentUpon>
     </Compile>
@@ -236,6 +241,7 @@
     <Content Include="Views\Mercadoria\AtualizarMercadoria.cshtml" />
     <Content Include="Views\Entrada\Index.cshtml" />
     <Content Include="Views\Entrada\AtualizarEntrada.cshtml" />
+    <Content Include="Views\Saida\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

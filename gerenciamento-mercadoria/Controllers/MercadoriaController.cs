@@ -15,7 +15,7 @@ namespace gerenciamento_mercadoria.Controllers
         {
             gerenciaEntities db = new gerenciaEntities();
             List<Mercadoria> mercadorias = db.Mercadorias.ToList();
-            MercadoriaViewModel mercadoriaVM = new MercadoriaViewModel();
+            //MercadoriaViewModel mercadoriaVM = new MercadoriaViewModel();
             List<MercadoriaViewModel> mercadoriaVMList = mercadorias.Select(mercadoria => new MercadoriaViewModel
             {
                 MercadoriaId = mercadoria.MercadoriaId,

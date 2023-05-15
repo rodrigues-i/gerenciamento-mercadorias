@@ -14,7 +14,7 @@ namespace gerenciamento_mercadoria.Controllers
         {
             gerenciaEntities db = new gerenciaEntities();
             List<Entrada> entradas = db.Entradas.ToList();
-            EntradaViewModel entradaVM = new EntradaViewModel();
+            //EntradaViewModel entradaVM = new EntradaViewModel();
             List<EntradaViewModel> entradaVMList = entradas.Select(entrada => new EntradaViewModel
             {
                 EntradaId = entrada.EntradaId,
