@@ -129,6 +129,7 @@
     <Compile Include="Controllers\EntradaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MercadoriaController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\SaidaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +137,7 @@
     <Compile Include="Models\Entrada.cs">
       <DependentUpon>MercadoriaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RelatorioViewModel.cs" />
     <Compile Include="Models\SaidaViewModel.cs" />
     <Compile Include="Models\EntradaViewModel.cs" />
     <Compile Include="Models\Mercadoria.cs">
@@ -244,6 +246,7 @@
     <Content Include="Views\Saida\Index.cshtml" />
     <Content Include="Views\Saida\AtualizarSaida.cshtml" />
     <Content Include="Views\Mercadoria\VisualizarEntradaSaida.cshtml" />
+    <Content Include="Views\Relatorio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
