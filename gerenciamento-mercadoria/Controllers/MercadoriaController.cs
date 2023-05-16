@@ -150,5 +150,16 @@ namespace gerenciamento_mercadoria.Controllers
         {
             return View();
         }
+
+        public JsonResult ObterEntradasSaidas()
+        {
+            var data = new
+            {
+                labels = new[] { "January", "February", "March", "April", "May", "June", "July" },
+                input = new[] { 10, 20, 30, 40, 50, 60, 70 },
+                output = new[] { 5, 15, 25, 35, 45, 55, 65 }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }
