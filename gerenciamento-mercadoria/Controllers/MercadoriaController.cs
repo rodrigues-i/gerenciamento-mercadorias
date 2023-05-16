@@ -145,5 +145,10 @@ namespace gerenciamento_mercadoria.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult VisualizarEntradaSaida(int id)
+        {
+            return View();
+        }
     }
 }
