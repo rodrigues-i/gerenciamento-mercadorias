@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Data.Objects.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -151,15 +153,105 @@ namespace gerenciamento_mercadoria.Controllers
             return View();
         }
 
-        public JsonResult ObterEntradasSaidas()
+        public JsonResult ObterEntradasSaidas(int id)
         {
+            var meses = BuscarMeses(id);
+            var listaQuantidadeEntradaSaida = ObterQuantidades(id);
+            var quantidadeEntradaPorMes = listaQuantidadeEntradaSaida.ElementAt(0);
+            var quantidadeSaidaPorMes = listaQuantidadeEntradaSaida.ElementAt(1);
+
             var data = new
             {
-                labels = new[] { "January", "February", "March", "April", "May", "June", "July" },
-                input = new[] { 10, 20, 30, 40, 50, 60, 70 },
-                output = new[] { 5, 15, 25, 35, 45, 55, 65 }
+                labels = meses,
+                entradas = quantidadeEntradaPorMes,
+                saidas = quantidadeSaidaPorMes
             };
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        private string[] BuscarMeses(int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            var meses = db.Saidas
+                .Where(saida => saida.MercadoriaId == id)
+                .Select(saida => SqlFunctions.DatePart("month", saida.Data))
+                .Distinct()
+                .ToList();
+
+            var nomeMeses = new List<string>();
+            foreach (var mes in meses)
+            {
+                switch (mes)
+                {
+                    case 1:
+                        nomeMeses.Add("Janeiro");
+                        break;
+                    case 2:
+                        nomeMeses.Add("Fevereiro");
+                        break;
+                    case 3:
+                        nomeMeses.Add("Março");
+                        break;
+                    case 4:
+                        nomeMeses.Add("Abril");
+                        break;
+                    case 5:
+                        nomeMeses.Add("Maio");
+                        break;
+                    case 6:
+                        nomeMeses.Add("Junho");
+                        break;
+                    case 7:
+                        nomeMeses.Add("Julho");
+                        break;
+                    case 8:
+                        nomeMeses.Add("Agosto");
+                        break;
+                    case 9:
+                        nomeMeses.Add("Setembro");
+                        break;
+                    case 10:
+                        nomeMeses.Add("Outubro");
+                        break;
+                    case 11:
+                        nomeMeses.Add("Novembro");
+                        break;
+                    case 12:
+                        nomeMeses.Add("Dezembro");
+                        break;
+                }
+            }
+
+            string[] arrayNomeMeses = nomeMeses.ToArray();
+            return arrayNomeMeses;
+        }
+
+        private List<int[]> ObterQuantidades(int id)
+        {
+            gerenciaEntities db = new gerenciaEntities();
+            // Obter quantidade de saida de mercadoria por mes
+            var quantidadesSaidaPorMes = db.Saidas
+                .Where(saida => saida.MercadoriaId == id)
+                .GroupBy(saida => new { Mes = saida.Data.Month, Ano = saida.Data.Year })
+                .Select(g => new { Mes = g.Key.Mes, Ano = g.Key.Ano, QuantidadeTotal = g.Sum(saida => saida.Quantidade) })
+                .ToList();
+
+            var arraySaidaQuantidadeTotal = quantidadesSaidaPorMes.Select(q => q.QuantidadeTotal).ToArray();
+
+            // Obter quantidade de entrada de mercadoria por mes
+            var quantidadesEntradaPorMes = db.Entradas
+                .Where(entrada => entrada.MercadoriaId == id)
+                .GroupBy(entrada => new { Mes = entrada.Data.Month, Ano = entrada.Data.Year })
+                .Select(g => new { Mes = g.Key.Mes, Ano = g.Key.Ano, QuantidadeTotal = g.Sum(entrada => entrada.Quantidade) })
+                .ToList();
+
+            var arrayEntradaQuantidadeTotal = quantidadesEntradaPorMes.Select(q => q.QuantidadeTotal).ToArray();
+
+            // Junta tudo em uma lista
+            List<int[]> listaEntradasSaidas = new List<int[]> { arrayEntradaQuantidadeTotal, arraySaidaQuantidadeTotal };
+
+            return listaEntradasSaidas;
+
         }
     }
 }
