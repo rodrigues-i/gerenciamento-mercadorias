@@ -64,7 +64,10 @@
                         @Html.ActionLink("Atualizar", "AtualizarMercadoria", new { id = mercadoria.MercadoriaId }, new { @class = "btn btn-success" })
                     </td>
                     <td>
-                        @Html.ActionLink("Excluir", "RemoverMercadoria", new { id = mercadoria.MercadoriaId}, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Excluir", "RemoverMercadoria", new { id = mercadoria.MercadoriaId }, new { @class = "btn btn-danger" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Visualizar", "VisualizarEntradaSaida", new { id = mercadoria.MercadoriaId}, new { @class = "btn btn-primary" })
                     </td>
                 </tr>
             }
