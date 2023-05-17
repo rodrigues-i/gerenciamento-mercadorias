@@ -156,7 +156,7 @@ namespace gerenciamento_mercadoria.Controllers
         public JsonResult ObterEntradasSaidas(int id)
         {
             var meses = BuscarMeses(id);
-            var listaQuantidadeEntradaSaida = ObterQuantidades(id);
+            var listaQuantidadeEntradaSaida = ObterQuantidades(id, meses);
             var quantidadeEntradaPorMes = listaQuantidadeEntradaSaida.ElementAt(0);
             var quantidadeSaidaPorMes = listaQuantidadeEntradaSaida.ElementAt(1);
 
@@ -226,17 +226,16 @@ namespace gerenciamento_mercadoria.Controllers
             return arrayNomeMeses;
         }
 
-        private List<int[]> ObterQuantidades(int id)
+        private List<int[]> ObterQuantidades(int id, string[] meses)
         {
             gerenciaEntities db = new gerenciaEntities();
+
             // Obter quantidade de saida de mercadoria por mes
             var quantidadesSaidaPorMes = db.Saidas
                 .Where(saida => saida.MercadoriaId == id)
                 .GroupBy(saida => new { Mes = saida.Data.Month, Ano = saida.Data.Year })
                 .Select(g => new { Mes = g.Key.Mes, Ano = g.Key.Ano, QuantidadeTotal = g.Sum(saida => saida.Quantidade) })
                 .ToList();
-
-            var arraySaidaQuantidadeTotal = quantidadesSaidaPorMes.Select(q => q.QuantidadeTotal).ToArray();
 
             // Obter quantidade de entrada de mercadoria por mes
             var quantidadesEntradaPorMes = db.Entradas
@@ -245,13 +244,71 @@ namespace gerenciamento_mercadoria.Controllers
                 .Select(g => new { Mes = g.Key.Mes, Ano = g.Key.Ano, QuantidadeTotal = g.Sum(entrada => entrada.Quantidade) })
                 .ToList();
 
-            var arrayEntradaQuantidadeTotal = quantidadesEntradaPorMes.Select(q => q.QuantidadeTotal).ToArray();
 
-            // Junta tudo em uma lista
-            List<int[]> listaEntradasSaidas = new List<int[]> { arrayEntradaQuantidadeTotal, arraySaidaQuantidadeTotal };
+            // Define a lista com todos os meses que queremos mostrar
+            var ListaMeses = meses.ToList();
+
+            Dictionary<string, int> dictMeses = new Dictionary<string, int>
+            {
+                { "Janeiro", 1 },
+                { "Fevereiro", 2 },
+                { "Março", 3 },
+                { "Abril", 4 },
+                { "Maio", 5 },
+                { "Junho", 6 },
+                { "Julho", 7 },
+                { "Agosto", 8 },
+                { "Setembro", 9 },
+                { "Outubro", 10 },
+                { "Novembro", 11 },
+                { "Dezembro", 12 }
+            };
+
+            List<int> numerosMeses = new List<int>();
+            foreach (string mes in ListaMeses)
+            {
+                int numeroMes;
+                if (dictMeses.TryGetValue(mes, out numeroMes))
+                {
+                    numerosMeses.Add(numeroMes);
+                }
+            }
+
+            // Cria duas listas vazias para armazenar as quantidades de entrada e saída
+            var listaEntradas = new List<int>();
+            var listaSaidas = new List<int>();
+
+            // Percorre todos os meses e verifica se há dados de entrada e saída para aquele mês
+            foreach (var mes in numerosMeses)
+            {
+                // Verifica se há dados de entrada para o mês atual
+                var entrada = quantidadesEntradaPorMes.FirstOrDefault(q => q.Mes == mes);
+
+                if (entrada == null)
+                {
+                    listaEntradas.Add(0); // Se não há dados de entrada, adiciona 0 à lista
+                }
+                else
+                {
+                    listaEntradas.Add(entrada.QuantidadeTotal); // Se há dados de entrada, adiciona a quantidade à lista
+                }
+
+                // Verifica se há dados de saída para o mês atual
+                var saida = quantidadesSaidaPorMes.FirstOrDefault(q => q.Mes == mes);
+                if (saida == null)
+                {
+                    listaSaidas.Add(0); // Se não há dados de saída, adiciona 0 à lista
+                }
+                else
+                {
+                    listaSaidas.Add(saida.QuantidadeTotal); // Se há dados de saída, adiciona a quantidade à lista
+                }
+            }
+
+            // Junta as listas de entrada e saída em uma lista de arrays
+            var listaEntradasSaidas = new List<int[]> { listaEntradas.ToArray(), listaSaidas.ToArray() };
 
             return listaEntradasSaidas;
-
         }
     }
 }
