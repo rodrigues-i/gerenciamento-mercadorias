@@ -49,18 +49,22 @@ namespace gerenciamento_mercadoria.Controllers
         [HttpPost]
         public ActionResult GerarRelatorio(RelatorioViewModel model)
         {
-            int mesSelecionado = int.Parse(model.Value);
-            gerenciaEntities db = new gerenciaEntities();
-            
-            var entradas = db.Entradas
-                .Where(entrada => entrada.Data.Month == mesSelecionado)
-                .ToList();
+            if(model.Value != null)
+            {
+                int mesSelecionado = int.Parse(model.Value);
+                gerenciaEntities db = new gerenciaEntities();
 
-            var saidas = db.Saidas
-                .Where(saida => saida.Data.Month == mesSelecionado)
-                .ToList();
+                var entradas = db.Entradas
+                    .Where(entrada => entrada.Data.Month == mesSelecionado)
+                    .ToList();
 
-            return GerarPdf(entradas, saidas);
+                var saidas = db.Saidas
+                    .Where(saida => saida.Data.Month == mesSelecionado)
+                    .ToList();
+
+                return GerarPdf(entradas, saidas);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         private ActionResult GerarPdf(List<Entrada> entradas, List<Saida> saidas)
