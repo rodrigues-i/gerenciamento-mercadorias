@@ -1,8 +1,15 @@
 ﻿@model gerenciamento_mercadoria.Models.MercadoriaViewModel
+
 @{
     ViewBag.Title = "AtualizarMercadoria";
     Layout = null;
 }
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -43,15 +50,20 @@
                 <div class="modal-body">
                     <form id="myForm">
 
-                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control"})
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "error" })
 
-                        @Html.TextBoxFor(model => model.NumeroRegistro, new { @class = "form-control"})
+                        @Html.TextBoxFor(model => model.NumeroRegistro, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NumeroRegistro, "", new { @class = "error" })
 
-                        @Html.TextBoxFor(model => model.Fabricante, new { @class = "form-control"})
+                        @Html.TextBoxFor(model => model.Fabricante, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Fabricante, "", new { @class = "error" })
 
                         @Html.DropDownListFor(model => model.TipoId, ViewBag.TipoList as SelectList, "Tipo de Mercadoria", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoId, "", new { @class = "error" })
 
-                        @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control"})
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "error" })
 
                     </form>
                 </div>
@@ -63,6 +75,9 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -78,6 +93,11 @@
     $(document).ready(function () {
         $("#btnSubimiit").click(function () {
             var myFormData = $("#myForm").serialize();
+
+            if (!$("#myForm").valid()) {
+
+                return false;
+            }
 
             $.ajax({
                 type: "POST",

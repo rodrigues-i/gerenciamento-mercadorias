@@ -5,6 +5,12 @@
     Layout = null;
 }
 
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -46,12 +52,16 @@
                     <form id="myForm">
 
                         @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "error" })
 
                         @Html.TextBoxFor(model => model.Data, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Data, "", new { @class = "error" })
 
                         @Html.TextBoxFor(model => model.Local, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Local, "", new { @class = "error" })
 
                         @Html.DropDownListFor(model => model.MercadoriaId, ViewBag.MercadoriaList as SelectList, "Selecione uma Mercadoria", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MercadoriaId, "", new { @class = "error" })
 
 
                     </form>
@@ -64,6 +74,9 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -79,6 +92,11 @@
     $(document).ready(function () {
         $("#btnSubimit").click(function () {
             var myFormData = $("#myForm").serialize();
+
+            if (!$("#myForm").valid()) {
+
+                return false;
+            }
 
             $.ajax({
                 type: "POST",
