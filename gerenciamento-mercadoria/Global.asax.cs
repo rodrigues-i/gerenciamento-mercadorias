@@ -17,9 +17,6 @@ namespace gerenciamento_mercadoria
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("pt-BR");
         }
     }
 }

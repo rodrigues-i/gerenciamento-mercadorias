@@ -51,13 +51,13 @@
                 <div class="modal-body">
                     <form id="myForm">
 
-                        @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", @placeholder = "Quantidade" })
                         @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "error" })
 
-                        @Html.TextBoxFor(model => model.Data, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Data, new { @class = "form-control", @placeholder = "Data e Hora no Formato dd/mm/yyyy h:m" })
                         @Html.ValidationMessageFor(model => model.Data, "", new { @class = "error" })
 
-                        @Html.TextBoxFor(model => model.Local, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Local, new { @class = "form-control", @placeholder = "Local" })
                         @Html.ValidationMessageFor(model => model.Local, "", new { @class = "error" })
 
                         @Html.DropDownListFor(model => model.MercadoriaId, ViewBag.MercadoriaList as SelectList, "Selecione uma Mercadoria", new { @class = "form-control" })
