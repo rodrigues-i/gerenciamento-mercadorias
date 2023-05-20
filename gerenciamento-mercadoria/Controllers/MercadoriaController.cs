@@ -172,11 +172,22 @@ namespace gerenciamento_mercadoria.Controllers
         private string[] BuscarMeses(int id)
         {
             gerenciaEntities db = new gerenciaEntities();
-            var meses = db.Saidas
+            var mesesSaida = db.Saidas
                 .Where(saida => saida.MercadoriaId == id)
                 .Select(saida => SqlFunctions.DatePart("month", saida.Data))
                 .Distinct()
                 .ToList();
+
+            var mesesEntrada= db.Entradas
+                .Where(entrada => entrada.MercadoriaId == id)
+                .Select(entrada => SqlFunctions.DatePart("month", entrada.Data))
+                .Distinct()
+                .ToList();
+
+            var meses = mesesSaida.Union(mesesEntrada).ToList();
+
+            // Ordena os meses em forma crescnte
+            meses.Sort();
 
             var nomeMeses = new List<string>();
             foreach (var mes in meses)
