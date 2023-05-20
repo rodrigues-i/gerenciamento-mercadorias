@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "AtualizarSaida";
-    Layout = null;
 }
 
 <style>
@@ -20,25 +19,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand text-white">Nome Aplicação</a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Mercadoria", "Index", "Mercadoria", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Entrada", "Index", "Entrada", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Saída", "Index", "Saida", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Relatorio", "Index", "Relatorio", new { area = "" }, new { @class = "nav-link" })</li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
 
 <div class="container d-flex flex-column" style="width:90%;margin-top:2%">
     <div class="modal fade" id="myModal">
